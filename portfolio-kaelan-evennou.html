@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaëlan Evennou — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --accent: #6CDEEA;
+        --accent-dark: #3ab8c8;
+        --accent-glow: rgba(108,222,234,0.15);
+        --bg: #0a0e12;
+        --bg2: #0f1419;
+        --bg3: #141c24;
+        --surface: #1a2333;
+        --surface2: #1f2c40;
+        --text: #e8f0f8;
+        --text-muted: #7a92aa;
+        --text-dim: #4a6070;
+        --border: rgba(108,222,234,0.12);
+        --border-hover: rgba(108,222,234,0.35);
+        --font-display: 'Syne', sans-serif;
+        --font-mono: 'Space Mono', monospace;
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        font-family: var(--font-display);
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* ─── GRID BACKGROUND ─── */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(108,222,234,0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(108,222,234,0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2.5rem;
+        background: rgba(10,14,18,0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .nav-logo {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--accent);
+        letter-spacing: 0.08em;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 0.25rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        padding: 0.4rem 0.9rem;
+        border-radius: 4px;
+        border: 0.5px solid transparent;
+        transition: all 0.2s ease;
+        letter-spacing: 0.05em;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent);
+        border-color: var(--border-hover);
+        background: var(--accent-glow);
+      }
+
+      /* ─── PAGES ─── */
+      .page { display: none; position: relative; z-index: 1; }
+      .page.active { display: block; }
+
+      /* ─── PAGE 1 : À PROPOS ─── */
+      .hero {
+        min-height: calc(100vh - 60px);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        align-items: stretch;
+      }
+
+      .hero-left {
+        padding: 5rem 4rem 4rem 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-right: 0.5px solid var(--border);
+        position: relative;
+      }
+
+      .hero-left::after {
+        content: '';
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        background: radial-gradient(ellipse at 0% 50%, rgba(108,222,234,0.05) 0%, transparent 70%);
+        pointer-events: none;
+      }
+
+      .hero-tag {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--accent);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .hero-tag::before {
+        content: '';
+        width: 32px;
+        height: 1px;
+        background: var(--accent);
+      }
+
+      .hero-name {
+        font-family: var(--font-display);
+        font-size: clamp(2.8rem, 5vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.05;
+        color: var(--text);
+        margin-bottom: 0.5rem;
+      }
+
+      .hero-name span {
+        color: var(--accent);
+        display: block;
+      }
+
+      .hero-subtitle {
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 1.5rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+        max-width: 380px;
+      }
+
+      .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.75rem 1.75rem;
+        background: var(--accent);
+        color: #0a0e12;
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+        align-self: flex-start;
+      }
+
+      .hero-cta:hover {
+        background: var(--text);
+        transform: translateY(-1px);
+      }
+
+      .hero-cta svg { width: 14px; height: 14px; }
+
+      .hero-right {
+        padding: 4rem 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        justify-content: center;
+      }
+
+      .info-block {}
+
+      .info-label {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        color: var(--accent);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .qualities-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+
+      .quality-pill {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        padding: 0.45rem 0.75rem;
+        border: 0.5px solid var(--border);
+        border-radius: 3px;
+        background: var(--surface);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .quality-pill::before {
+        content: '▸';
+        color: var(--accent);
+        font-size: 0.6rem;
+      }
+
+      .quality-pill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .hobbies-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .hobby-tag {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--text-dim);
+        padding: 0.3rem 0.7rem;
+        border: 0.5px solid var(--border);
+        border-radius: 2px;
+        background: transparent;
+        letter-spacing: 0.04em;
+      }
+
+      /* Timeline parcours */
+      .timeline { position: relative; padding-left: 1.5rem; }
+
+      .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 1px;
+        background: var(--border);
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-bottom: 1.5rem;
+        animation: fadeUp 0.5s ease both;
+      }
+
+      .timeline-item:last-child { padding-bottom: 0; }
+
+      .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -1.55rem;
+        top: 0.35rem;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 1.5px solid var(--bg);
+      }
+
+      .timeline-year {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--accent);
+        letter-spacing: 0.1em;
+        margin-bottom: 0.2rem;
+      }
+
+      .timeline-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.15rem;
+      }
+
+      .timeline-desc {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+      }
+
+      /* ─── PAGE 2 : COMPÉTENCES ─── */
+      .page-header {
+        padding: 4rem 4rem 2rem;
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .page-header-tag {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--accent);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+      }
+
+      .page-header h1 {
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        font-weight: 800;
+        line-height: 1.1;
+      }
+
+      .page-header p {
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        margin-top: 0.75rem;
+        max-width: 500px;
+        line-height: 1.6;
+      }
+
+      .competences-grid {
+        padding: 3rem 4rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .comp-card {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 6px;
+        padding: 1.75rem;
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.3s ease, background 0.3s ease;
+        cursor: default;
+      }
+
+      .comp-card:hover {
+        border-color: var(--border-hover);
+        background: var(--surface2);
+      }
+
+      .comp-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 3px;
+        height: 100%;
+        background: var(--accent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .comp-card:hover::before { opacity: 1; }
+
+      .comp-number {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        margin-bottom: 0.75rem;
+        opacity: 0.7;
+      }
+
+      .comp-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 1rem;
+        line-height: 1.35;
+      }
+
+      .comp-desc {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1.25rem;
+      }
+
+      .comp-proofs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .comp-proof-label {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: var(--text-dim);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+
+      .proof-link {
+        font-family: var(--font-mono);
+        font-size: 0.71rem;
+        color: var(--accent);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.6rem;
+        border: 0.5px solid transparent;
+        border-radius: 3px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        background: none;
+        border: none;
+        text-align: left;
+        width: 100%;
+      }
+
+      .proof-link:hover {
+        background: var(--accent-glow);
+        padding-left: 0.9rem;
+      }
+
+      .proof-link::before {
+        content: '→';
+        font-size: 0.65rem;
+        flex-shrink: 0;
+      }
+
+      /* ─── PAGE 3 : PROJETS ─── */
+      .projects-grid {
+        padding: 3rem 4rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        transition: border-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .project-card:hover {
+        border-color: var(--border-hover);
+        transform: translateY(-3px);
+      }
+
+      .project-banner {
+        height: 120px;
+        background: var(--bg3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .project-banner-icon {
+        font-size: 3rem;
+        opacity: 0.4;
+        user-select: none;
+      }
+
+      .project-banner-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(108,222,234,0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(108,222,234,0.06) 1px, transparent 1px);
+        background-size: 20px 20px;
+      }
+
+      .project-banner-accent {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 2px;
+        background: var(--accent);
+        opacity: 0.6;
+      }
+
+      .project-body { padding: 1.5rem; }
+
+      .project-type {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: var(--text-dim);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 0.75rem;
+      }
+
+      .project-desc {
+        font-family: var(--font-mono);
+        font-size: 0.71rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+        margin-bottom: 1.25rem;
+      }
+
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .project-tag {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: var(--accent);
+        padding: 0.2rem 0.5rem;
+        border: 0.5px solid rgba(108,222,234,0.25);
+        border-radius: 2px;
+        background: var(--accent-glow);
+        letter-spacing: 0.08em;
+      }
+
+      .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border: 0.5px solid var(--border);
+        border-radius: 3px;
+        transition: all 0.2s ease;
+      }
+
+      .project-link:hover {
+        color: var(--accent);
+        border-color: var(--border-hover);
+        background: var(--accent-glow);
+      }
+
+      .project-link svg { width: 13px; height: 13px; }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(18px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .page.active .comp-card,
+      .page.active .project-card {
+        animation: fadeUp 0.4s ease both;
+      }
+
+      .page.active .comp-card:nth-child(1) { animation-delay: 0.05s; }
+      .page.active .comp-card:nth-child(2) { animation-delay: 0.1s; }
+      .page.active .comp-card:nth-child(3) { animation-delay: 0.15s; }
+      .page.active .comp-card:nth-child(4) { animation-delay: 0.2s; }
+      .page.active .comp-card:nth-child(5) { animation-delay: 0.25s; }
+      .page.active .comp-card:nth-child(6) { animation-delay: 0.3s; }
+
+      .page.active .project-card:nth-child(1) { animation-delay: 0.05s; }
+      .page.active .project-card:nth-child(2) { animation-delay: 0.1s; }
+      .page.active .project-card:nth-child(3) { animation-delay: 0.15s; }
+      .page.active .project-card:nth-child(4) { animation-delay: 0.2s; }
+      .page.active .project-card:nth-child(5) { animation-delay: 0.25s; }
+
+      .hero-name, .hero-tag, .hero-subtitle, .hero-cta {
+        animation: fadeUp 0.5s ease both;
+      }
+      .hero-name { animation-delay: 0.1s; }
+      .hero-tag  { animation-delay: 0s; }
+      .hero-subtitle { animation-delay: 0.2s; }
+      .hero-cta  { animation-delay: 0.3s; }
+
+      .hero-right .info-block:nth-child(1) { animation: fadeUp 0.5s 0.15s ease both; }
+      .hero-right .info-block:nth-child(2) { animation: fadeUp 0.5s 0.25s ease both; }
+      .hero-right .info-block:nth-child(3) { animation: fadeUp 0.5s 0.35s ease both; }
+
+      /* Cursor accent dot */
+      .cursor-dot {
+        width: 6px; height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: inline-block;
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+      /* Page transition */
+      .page-enter { animation: fadeUp 0.35s ease both; }
+
+      /* Highlight target project */
+      .project-card.highlight-target {
+        border-color: var(--accent);
+        animation: pulseHighlight 1.2s ease 3;
+      }
+      @keyframes pulseHighlight {
+        0%,100% { box-shadow: none; }
+        50% { box-shadow: 0 0 0 3px rgba(108,222,234,0.25); }
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--accent-dark); }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero { grid-template-columns: 1fr; }
+        .hero-left { border-right: none; border-bottom: 0.5px solid var(--border); padding: 3rem 2rem 2rem; }
+        .hero-right { padding: 2rem; }
+        .competences-grid, .projects-grid { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+        nav { padding: 0.75rem 1.25rem; }
+        .nav-links a { padding: 0.35rem 0.6rem; font-size: 0.7rem; }
+        .page-header { padding: 2.5rem 1.5rem 1.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+
+  <nav>
+    <a class="nav-logo" href="#" onclick="showPage('about')">KE<span class="cursor-dot"></span></a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('about')" id="nav-about" class="active">À propos</a></li>
+      <li><a href="#" onclick="showPage('competences')" id="nav-competences">Compétences</a></li>
+      <li><a href="#" onclick="showPage('projets')" id="nav-projets">Projets</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══════════════ PAGE 1 ══════════════ -->
+  <section class="page active" id="page-about">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">Étudiant BUT Informatique</div>
+        <h1 class="hero-name">
+          Kaëlan<span>Evennou</span>
+        </h1>
+        <p class="hero-subtitle">
+          Passionné de développement — jeux vidéo, web et logiciels.<br>
+          Curieux, rigoureux et toujours prêt à relever de nouveaux défis techniques.
+        </p>
+        <a href="CV_Kaëlan_Evennou.pdf" download class="hero-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+          </svg>
+          Télécharger mon CV
+        </a>
+      </div>
+
+      <div class="hero-right">
+        <div class="info-block">
+          <div class="info-label">Qualités</div>
+          <div class="qualities-grid">
+            <div class="quality-pill">Motivé</div>
+            <div class="quality-pill">Rigoureux</div>
+            <div class="quality-pill">Curieux</div>
+            <div class="quality-pill">Déterminé</div>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-label">Hobbies</div>
+          <div class="hobbies-list">
+            <span class="hobby-tag">Volley-ball</span>
+            <span class="hobby-tag">Game dev solo</span>
+            <span class="hobby-tag">Game dev en club</span>
+            <span class="hobby-tag">Montage vidéo</span>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="info-label">Parcours</div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">2022 — Mars</div>
+              <div class="timeline-title">Stage d'observation</div>
+              <div class="timeline-desc">Conseil Général du Finistère · 1 semaine</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2022</div>
+              <div class="timeline-title">Baccalauréat Général</div>
+              <div class="timeline-desc">Spécialités Mathématiques & NSI (Numérique et Sciences Informatiques)</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2022 — présent</div>
+              <div class="timeline-title">BUT Informatique</div>
+              <div class="timeline-desc">Parcours en cours · Développement, algorithmes, bases de données & gestion de projet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ PAGE 2 ══════════════ -->
+  <section class="page" id="page-competences">
+    <div class="page-header">
+      <div class="page-header-tag">BUT Informatique</div>
+      <h1>Compétences<br>acquises</h1>
+      <p>Six compétences fondamentales développées au fil de ma formation, appuyées par des projets concrets.</p>
+    </div>
+
+    <div class="competences-grid">
+
+      <div class="comp-card">
+        <div class="comp-number">C01</div>
+        <div class="comp-title">Développer des applications informatiques simples</div>
+        <div class="comp-desc">Conception et développement d'applications fonctionnelles en suivant les bonnes pratiques de programmation.</div>
+        <div class="comp-proof-label">Preuves</div>
+        <div class="comp-proofs">
+          <button class="proof-link" onclick="goToProject('fareaven')">Fareaven — jeu d'esquive multijoueur</button>
+          <button class="proof-link" onclick="goToProject('sokoban')">Sokoban — jeu de réflexion en terminal</button>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-number">C02</div>
+        <div class="comp-title">Appréhender et construire des algorithmes</div>
+        <div class="comp-desc">Analyse de problèmes et conception de solutions algorithmiques efficaces, notamment pour des mécaniques de jeu et d'automatisation.</div>
+        <div class="comp-proof-label">Preuves</div>
+        <div class="comp-proofs">
+          <button class="proof-link" onclick="goToProject('sokoban-auto')">Sokoban Auto — résolution automatique de niveaux</button>
+          <button class="proof-link" onclick="goToProject('sokoban')">Sokoban — logique de déplacement et niveaux</button>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-number">C03</div>
+        <div class="comp-title">Installer et configurer un poste de travail</div>
+        <div class="comp-desc">Mise en place d'environnements de développement, gestion des outils et configuration des systèmes pour travailler efficacement.</div>
+        <div class="comp-proof-label">Preuves</div>
+        <div class="comp-proofs">
+          <button class="proof-link" onclick="goToProject('fareaven')">Mise en place de l'environnement Godot & Git — Fareaven</button>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-number">C04</div>
+        <div class="comp-title">Concevoir et mettre en place une base de données</div>
+        <div class="comp-desc">Analyse d'un cahier des charges client pour modéliser, concevoir et implémenter une base de données relationnelle adaptée.</div>
+        <div class="comp-proof-label">Preuves</div>
+        <div class="comp-proofs">
+          <button class="proof-link" onclick="goToProject('site-bresil')">Site Brésil — gestion de données et contenu structuré</button>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-number">C05</div>
+        <div class="comp-title">Identifier les besoins métiers des clients</div>
+        <div class="comp-desc">Écoute et analyse des besoins utilisateurs pour produire un livrable conforme à un cahier des charges défini.</div>
+        <div class="comp-proof-label">Preuves</div>
+        <div class="comp-proofs">
+          <button class="proof-link" onclick="goToProject('site-bresil')">Site Brésil — réponse à un cahier des charges groupe</button>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-number">C06</div>
+        <div class="comp-title">Identifier ses aptitudes pour travailler en équipe</div>
+        <div class="comp-desc">Collaboration sur des projets collectifs, communication, répartition des rôles et contribution active dans une dynamique de groupe.</div>
+        <div class="comp-proof-label">Preuves</div>
+        <div class="comp-proofs">
+          <button class="proof-link" onclick="goToProject('dans-mes-pensees')">Dans mes pensées — game jam en équipe (4 semaines)</button>
+          <button class="proof-link" onclick="goToProject('fareaven')">Fareaven — développement collaboratif</button>
+          <button class="proof-link" onclick="goToProject('site-bresil')">Site Brésil — projet de groupe</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ PAGE 3 ══════════════ -->
+  <section class="page" id="page-projets">
+    <div class="page-header">
+      <div class="page-header-tag">GitHub</div>
+      <h1>Mes projets</h1>
+      <p>Une sélection de projets réalisés seul ou en équipe, dans le cadre de ma formation et de mes activités personnelles.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card" id="proj-fareaven">
+        <div class="project-banner">
+          <div class="project-banner-grid"></div>
+          <div class="project-banner-icon">🎮</div>
+          <div class="project-banner-accent"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Jeu vidéo · Collaboratif</div>
+          <div class="project-title">Fareaven</div>
+          <div class="project-desc">Jeu d'esquive développé en équipe avec des amis. L'objectif est d'éviter les ennemis présents sur la map pour atteindre le score le plus élevé possible. Un défi d'agilité et de réflexes en constante progression.</div>
+          <div class="project-tags">
+            <span class="project-tag">Game Dev</span>
+            <span class="project-tag">Travail d'équipe</span>
+            <span class="project-tag">Score Attack</span>
+          </div>
+          <a href="https://github.com/The-Kake/Fareaven_Demo" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card" id="proj-sokoban">
+        <div class="project-banner">
+          <div class="project-banner-grid"></div>
+          <div class="project-banner-icon">📦</div>
+          <div class="project-banner-accent"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Jeu terminal · Solo</div>
+          <div class="project-title">Sokoban</div>
+          <div class="project-desc">Jeu de réflexion classique affiché dans le terminal. Le joueur sélectionne un niveau et doit placer toutes les caisses sur les cibles en utilisant la logique et la stratégie. Réalisé dans le cadre de la validation de compétences en développement.</div>
+          <div class="project-tags">
+            <span class="project-tag">Terminal</span>
+            <span class="project-tag">Algorithmique</span>
+            <span class="project-tag">Puzzle</span>
+          </div>
+          <a href="https://github.com/The-Kake/Sokoban" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card" id="proj-site-bresil">
+        <div class="project-banner">
+          <div class="project-banner-grid"></div>
+          <div class="project-banner-icon">🌐</div>
+          <div class="project-banner-accent"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Site web · Groupe</div>
+          <div class="project-title">Site Brésil</div>
+          <div class="project-desc">Site web présentant le Brésil de manière générale, réalisé en groupe à partir d'un cahier des charges. L'objectif était de concevoir un site informatif complet sur un pays choisi par les membres de l'équipe.</div>
+          <div class="project-tags">
+            <span class="project-tag">HTML/CSS</span>
+            <span class="project-tag">Cahier des charges</span>
+            <span class="project-tag">Travail de groupe</span>
+          </div>
+          <a href="https://github.com/The-Kake/Web-site-Bresil" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card" id="proj-sokoban-auto">
+        <div class="project-banner">
+          <div class="project-banner-grid"></div>
+          <div class="project-banner-icon">⚙️</div>
+          <div class="project-banner-accent"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Algorithmique · Solo</div>
+          <div class="project-title">Sokoban Auto</div>
+          <div class="project-desc">Version automatique du Sokoban : le joueur sélectionne un niveau et une chaîne de caractères (fournie en fichier) qui pilote la résolution du puzzle de manière automatisée. Un exercice approfondi de logique algorithmique.</div>
+          <div class="project-tags">
+            <span class="project-tag">Automatisation</span>
+            <span class="project-tag">Algorithmes</span>
+            <span class="project-tag">Terminal</span>
+          </div>
+          <a href="https://github.com/The-Kake/Sokoban_auto" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card" id="proj-dans-mes-pensees">
+        <div class="project-banner">
+          <div class="project-banner-grid"></div>
+          <div class="project-banner-icon">🧠</div>
+          <div class="project-banner-accent"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Jeu vidéo · Game Jam · itch.io</div>
+          <div class="project-title">Dans mes pensées</div>
+          <div class="project-desc">Jeu narratif réalisé en 4 semaines dans le cadre d'une game jam sur itch.io, avec une équipe d'amis. Le joueur incarne un personnage amnésique et doit retrouver sa mémoire à travers des mécaniques d'exploration et de réflexion.</div>
+          <div class="project-tags">
+            <span class="project-tag">Game Jam</span>
+            <span class="project-tag">Narratif</span>
+            <span class="project-tag">itch.io</span>
+            <span class="project-tag">Équipe</span>
+          </div>
+          <a href="https://github.com/The-Kake/Dans_mes_pensees_demo" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const projectMap = {
+      'fareaven':       'proj-fareaven',
+      'sokoban':        'proj-sokoban',
+      'site-bresil':    'proj-site-bresil',
+      'sokoban-auto':   'proj-sokoban-auto',
+      'dans-mes-pensees': 'proj-dans-mes-pensees'
+    };
+
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      document.getElementById('nav-' + name).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return false;
+    }
+
+    function goToProject(id) {
+      showPage('projets');
+      setTimeout(() => {
+        const el = document.getElementById(projectMap[id]);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('highlight-target');
+          setTimeout(() => el.classList.remove('highlight-target'), 3600);
+        }
+      }, 200);
+    }
+
+    document.querySelectorAll('nav a, .hero-cta, .proof-link').forEach(a => {
+      a.addEventListener('click', e => e.preventDefault());
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const page = this.id.replace('nav-', '');
+        showPage(page);
+      });
+    });
+  </script>
+  </body>
+</html>
