@@ -34,7 +34,6 @@
         overflow-x: hidden;
       }
 
-      /* ─── GRID BACKGROUND ─── */
       body::before {
         content: '';
         position: fixed;
@@ -47,7 +46,6 @@
         z-index: 0;
       }
 
-      /* ─── NAV ─── */
       nav {
         position: sticky;
         top: 0;
@@ -94,11 +92,9 @@
         background: var(--accent-glow);
       }
 
-      /* ─── PAGES ─── */
       .page { display: none; position: relative; z-index: 1; }
       .page.active { display: block; }
 
-      /* ─── PAGE 1 : À PROPOS ─── */
       .hero {
         min-height: calc(100vh - 60px);
         display: grid;
@@ -199,8 +195,6 @@
         justify-content: center;
       }
 
-      .info-block {}
-
       .info-label {
         font-family: var(--font-mono);
         font-size: 0.68rem;
@@ -260,7 +254,6 @@
         letter-spacing: 0.04em;
       }
 
-      /* Timeline parcours */
       .timeline { position: relative; padding-left: 1.5rem; }
 
       .timeline::before {
@@ -313,7 +306,6 @@
         line-height: 1.5;
       }
 
-      /* ─── PAGE 2 : COMPÉTENCES ─── */
       .page-header {
         padding: 4rem 4rem 2rem;
         border-bottom: 0.5px solid var(--border);
@@ -423,12 +415,10 @@
         font-family: var(--font-mono);
         font-size: 0.71rem;
         color: var(--accent);
-        text-decoration: none;
         display: flex;
         align-items: center;
         gap: 0.5rem;
         padding: 0.4rem 0.6rem;
-        border: 0.5px solid transparent;
         border-radius: 3px;
         transition: all 0.2s ease;
         cursor: pointer;
@@ -449,7 +439,6 @@
         flex-shrink: 0;
       }
 
-      /* ─── PAGE 3 : PROJETS ─── */
       .projects-grid {
         padding: 3rem 4rem;
         display: grid;
@@ -570,7 +559,6 @@
 
       .project-link svg { width: 13px; height: 13px; }
 
-      /* ─── ANIMATIONS ─── */
       @keyframes fadeUp {
         from { opacity: 0; transform: translateY(18px); }
         to   { opacity: 1; transform: translateY(0); }
@@ -593,6 +581,7 @@
       .page.active .project-card:nth-child(3) { animation-delay: 0.15s; }
       .page.active .project-card:nth-child(4) { animation-delay: 0.2s; }
       .page.active .project-card:nth-child(5) { animation-delay: 0.25s; }
+      .page.active .project-card:nth-child(6) { animation-delay: 0.3s; }
 
       .hero-name, .hero-tag, .hero-subtitle, .hero-cta {
         animation: fadeUp 0.5s ease both;
@@ -606,7 +595,6 @@
       .hero-right .info-block:nth-child(2) { animation: fadeUp 0.5s 0.25s ease both; }
       .hero-right .info-block:nth-child(3) { animation: fadeUp 0.5s 0.35s ease both; }
 
-      /* Cursor accent dot */
       .cursor-dot {
         width: 6px; height: 6px;
         border-radius: 50%;
@@ -617,10 +605,6 @@
       }
       @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-      /* Page transition */
-      .page-enter { animation: fadeUp 0.35s ease both; }
-
-      /* Highlight target project */
       .project-card.highlight-target {
         border-color: var(--accent);
         animation: pulseHighlight 1.2s ease 3;
@@ -630,13 +614,11 @@
         50% { box-shadow: 0 0 0 3px rgba(108,222,234,0.25); }
       }
 
-      /* Scrollbar */
       ::-webkit-scrollbar { width: 4px; }
       ::-webkit-scrollbar-track { background: var(--bg); }
       ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
       ::-webkit-scrollbar-thumb:hover { background: var(--accent-dark); }
 
-      /* Responsive */
       @media (max-width: 768px) {
         .hero { grid-template-columns: 1fr; }
         .hero-left { border-right: none; border-bottom: 0.5px solid var(--border); padding: 3rem 2rem 2rem; }
@@ -653,13 +635,13 @@
   <nav>
     <a class="nav-logo" href="#" onclick="showPage('about')">KE<span class="cursor-dot"></span></a>
     <ul class="nav-links">
-      <li><a href="#" onclick="showPage('about')" id="nav-about" class="active">À propos</a></li>
-      <li><a href="#" onclick="showPage('competences')" id="nav-competences">Compétences</a></li>
-      <li><a href="#" onclick="showPage('projets')" id="nav-projets">Projets</a></li>
+      <li><a href="#" id="nav-about" class="active">À propos</a></li>
+      <li><a href="#" id="nav-competences">Compétences</a></li>
+      <li><a href="#" id="nav-projets">Projets</a></li>
     </ul>
   </nav>
 
-  <!-- ══════════════ PAGE 1 ══════════════ -->
+  <!-- PAGE 1 -->
   <section class="page active" id="page-about">
     <div class="hero">
       <div class="hero-left">
@@ -672,7 +654,10 @@
           Curieux, rigoureux et toujours prêt à relever de nouveaux défis techniques.<br><br>
           Actuellement en première année de BUT Informatique, je suis à la recherche d'une alternance en développement web ou logiciel pour l'année prochaine.
         </p>
-        <a href="CV_Kaelan_Evennou.pdf" target="_blank" download class="hero-cta">
+        <a href="CV_Kaelan_Evennou.pdf" target="_blank" rel="noopener" class="hero-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+          </svg>
           Télécharger mon CV
         </a>
       </div>
@@ -722,7 +707,7 @@
     </div>
   </section>
 
-  <!-- ══════════════ PAGE 2 ══════════════ -->
+  <!-- PAGE 2 -->
   <section class="page" id="page-competences">
     <div class="page-header">
       <div class="page-header-tag">BUT Informatique</div>
@@ -770,7 +755,7 @@
         <div class="comp-desc">Analyse d'un cahier des charges client pour modéliser, concevoir et implémenter une base de données relationnelle adaptée.</div>
         <div class="comp-proof-label">Preuves</div>
         <div class="comp-proofs">
-          <button class="proof-link" onclick="goToProject('site-bresil')">Site Brésil — gestion de données et contenu structuré</button>
+          <button class="proof-link" onclick="goToProject('bdd-parcoursup')">Base de données Parcoursup — schéma relationnel SQL</button>
         </div>
       </div>
 
@@ -799,7 +784,7 @@
     </div>
   </section>
 
-  <!-- ══════════════ PAGE 3 ══════════════ -->
+  <!-- PAGE 3 -->
   <section class="page" id="page-projets">
     <div class="page-header">
       <div class="page-header-tag">GitHub</div>
@@ -930,16 +915,42 @@
         </div>
       </div>
 
+      <div class="project-card" id="proj-bdd-parcoursup">
+        <div class="project-banner">
+          <div class="project-banner-grid"></div>
+          <div class="project-banner-icon">🗄️</div>
+          <div class="project-banner-accent"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-type">Base de données · Binôme</div>
+          <div class="project-title">Base de données Parcoursup</div>
+          <div class="project-desc">Script de création d'une base de données simplifiée relative aux résultats de Parcoursup. À partir d'un tableau et d'un diagramme UML, il s'agissait, en binôme, de recréer un schéma relationnel en SQL.</div>
+          <div class="project-tags">
+            <span class="project-tag">SQL</span>
+            <span class="project-tag">UML</span>
+            <span class="project-tag">Modélisation</span>
+            <span class="project-tag">Binôme</span>
+          </div>
+          <a href="https://github.com/The-Kake" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            Voir sur GitHub
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <script>
     const projectMap = {
-      'fareaven':       'proj-fareaven',
-      'sokoban':        'proj-sokoban',
-      'site-bresil':    'proj-site-bresil',
-      'sokoban-auto':   'proj-sokoban-auto',
-      'dans-mes-pensees': 'proj-dans-mes-pensees'
+      'fareaven':         'proj-fareaven',
+      'sokoban':          'proj-sokoban',
+      'site-bresil':      'proj-site-bresil',
+      'sokoban-auto':     'proj-sokoban-auto',
+      'dans-mes-pensees': 'proj-dans-mes-pensees',
+      'bdd-parcoursup':   'proj-bdd-parcoursup'
     };
 
     function showPage(name) {
@@ -962,11 +973,7 @@
         }
       }, 200);
     }
-/*
-    document.querySelectorAll('nav a, .hero-cta, .proof-link').forEach(a => {
-      a.addEventListener('click', e => e.preventDefault());
-    });
-*/
+
     document.querySelectorAll('.nav-links a').forEach(a => {
       a.addEventListener('click', function(e) {
         e.preventDefault();
